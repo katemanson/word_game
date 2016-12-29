@@ -58,8 +58,6 @@ Bunch.prototype = {
   takeRandomTile: function(){
     var randomIndex = Math.floor(Math.random() * this.tiles.length);
     var randomTile = this.tiles[randomIndex];
-    console.log('randomTile object', randomTile);
-    console.log('randomTile.id', randomTile.id);
     this.tiles.splice(randomIndex, 1);
     return randomTile;
   },

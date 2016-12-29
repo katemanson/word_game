@@ -14,6 +14,9 @@ Grid.prototype = {
     if (event.target.tagName !== "CANVAS" && event.target.childElementCount === 0){
       event.preventDefault();
       var data = event.dataTransfer.getData("text");
+      var tile = JSON.parse(data);
+      tile.gridPosition = event.target.id;
+      
       event.target.appendChild(document.getElementById(data));
     }
   },
@@ -32,6 +35,7 @@ Grid.prototype = {
 
       for (var j = 0; j < numberColumns; j++){
         var square = document.createElement('td');
+        square.id = "c" + j + "r" + i;
         square.ondragover = this.dragOverHandler;
         square.ondrop = this.dropHandler;
         row.appendChild(square);

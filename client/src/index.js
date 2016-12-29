@@ -21,7 +21,11 @@ window.onload = function(){
     var gridSquare = document.getElementById('grid').children[0].children[i];
     var canvas = document.createElement('canvas');
     var tile = hand[i];
-    var tileJSON = JSON.stringify(hand[i]);
+    console.log('tile before setting position:', tile);
+    tile.gridPosition = gridSquare.id;
+    console.log('tile after setting position:', tile);
+    var tileJSON = JSON.stringify(tile);
+    console.log('tileJSON:', tileJSON);
     var context = canvas.getContext('2d');
 
     canvas.id = tileJSON;
@@ -32,5 +36,6 @@ window.onload = function(){
     gridSquare.appendChild(canvas);
     tile.draw(context);
   }
+  console.log('hand:', hand);
 
 }
