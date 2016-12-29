@@ -16,8 +16,15 @@ Grid.prototype = {
       var data = event.dataTransfer.getData("text");
       var tile = JSON.parse(data);
       tile.gridPosition = event.target.id;
-      
-      event.target.appendChild(document.getElementById(data));
+      //? Bit weird: the console log immediately below gives the element id updated
+      //with the new grid position (but this update doesn't happen til later on in the method).
+      //Is this to do with JS asynchronous-ness?
+      // console.log('document.getElementById(data)', document.getElementById(data));
+      var draggedElement = document.getElementById(data);
+      // !!ToDo!! Need to update hand with tile in new position.
+      event.target.appendChild(draggedElement);
+      draggedElement.id = JSON.stringify(tile);
+      console.log('drop event target after updating tile canvas id: ', event.target);
     }
   },
 
