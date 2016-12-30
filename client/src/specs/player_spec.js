@@ -13,27 +13,27 @@ describe('Player', function(){
     new Tile({letter: "e", id: 4})
   ];
   var testTileArrayTwo = [
-    new Tile({letter: "f", gridPosition: "", id: 1}),
-    new Tile({letter: "i", gridPosition: "", id: 1}),
-    new Tile({letter: "r", gridPosition: "", id: 1}),
-    new Tile({letter: "o", gridPosition: "", id: 1}),
-    new Tile({letter: "c", gridPosition: "", id: 1}),
-    new Tile({letter: "e", gridPosition: "", id: 1}),
-    new Tile({letter: "u", gridPosition: "", id: 1}),
-    new Tile({letter: "g", gridPosition: "", id: 1}),
-    new Tile({letter: "h", gridPosition: "", id: 1}),
-    new Tile({letter: "i", gridPosition: "", id: 1}),
-    new Tile({letter: "i", gridPosition: "", id: 1}),
-    new Tile({letter: "e", gridPosition: "", id: 1}),
-    new Tile({letter: "x", gridPosition: "", id: 1}),
-    new Tile({letter: "r", gridPosition: "", id: 1}),
-    new Tile({letter: "t", gridPosition: "", id: 1}),
-    new Tile({letter: "o", gridPosition: "", id: 1}),
-    new Tile({letter: "r", gridPosition: "", id: 1}),
-    new Tile({letter: "v", gridPosition: "", id: 1}),
-    new Tile({letter: "e", gridPosition: "", id: 1}),
-    new Tile({letter: "r", gridPosition: "", id: 1}),
-    new Tile({letter: "t", gridPosition: "", id: 1})
+    new Tile({letter: "f", gridPosition: {column: 3, row: 5}, id: 1}),
+    new Tile({letter: "i", gridPosition: {column: 3, row: 6}, id: 2}),
+    new Tile({letter: "r", gridPosition: {column: 3, row: 7}, id: 3}),
+    new Tile({letter: "o", gridPosition: {column: 4, row: 7}, id: 4}),
+    new Tile({letter: "c", gridPosition: {column: 4, row: 9}, id: 5}),
+    new Tile({letter: "e", gridPosition: {column: 5, row: 5}, id: 6}),
+    new Tile({letter: "u", gridPosition: {column: 5, row: 7}, id: 7}),
+    new Tile({letter: "g", gridPosition: {column: 6, row: 7}, id: 8}),
+    new Tile({letter: "h", gridPosition: {column: 5, row: 9}, id: 9}),
+    new Tile({letter: "i", gridPosition: {column: 5, row: 10}, id: 10}),
+    new Tile({letter: "i", gridPosition: {column: 6, row: 9}, id: 11}),
+    new Tile({letter: "e", gridPosition: {column: 7, row: 5}, id: 12}),
+    new Tile({letter: "x", gridPosition: {column: 6, row: 5}, id: 13}),
+    new Tile({letter: "r", gridPosition: {column: 8, row: 5}, id: 14}),
+    new Tile({letter: "t", gridPosition: {column: 9, row: 5}, id: 15}),
+    new Tile({letter: "o", gridPosition: {column: 9, row: 6}, id: 16}),
+    new Tile({letter: "r", gridPosition: {column: 7, row: 4}, id: 17}),
+    new Tile({letter: "v", gridPosition: {column: 7, row: 6}, id: 18}),
+    new Tile({letter: "e", gridPosition: {column: 7, row: 7}, id: 19}),
+    new Tile({letter: "r", gridPosition: {column: 7, row: 8}, id: 20}),
+    new Tile({letter: "t", gridPosition: {column: 7, row: 9}, id: 21})
   ]
 
   beforeEach(function(){
@@ -85,10 +85,11 @@ describe('Player', function(){
     assert.equal(4, testPlayer.hand.length);
   });
 
-  // it('should be possible to identify words based on grid positions of tiles', function(){
-  //   testPlayer.getTiles(testTileArrayTwo);
-  //   testPlayer.getWords();
-  //   assert.equal(7, testPlayer.words.length);
-  // })
+  it('should be possible to identify words based on grid positions of tiles', function(){
+    testPlayer.getTiles(testTileArrayTwo);
+    testPlayer.getWords();
+    // testPlayer.getWords();
+    // assert.equal(7, testPlayer.words.length);
+  })
 
 });
