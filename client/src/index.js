@@ -10,10 +10,17 @@ window.onload = function(){
   var player = new Player("Vyvyan");
   game.addPlayer(player);
   game.dealHand(21);
+  console.log('player hand:', player.hand);
+
+  var gridIdToTilePosition = function(gridSquareId){
+    var columnNumber = Number(gridSquareId.split(",")[0]);
+    var rowNumber = Number(gridSquareId.split(",")[1]);
+    var tilePosition = {column: columnNumber, row: rowNumber};
+    return tilePosition;
+  }
 
   var dragStartHandler = function(event){
     event.dataTransfer.setData("text", event.target.id);
-    event.target.opacity = 0.5;
   }
 
   var dragOverHandler = function(event){
@@ -27,7 +34,7 @@ window.onload = function(){
       event.preventDefault();
       var data = event.dataTransfer.getData("text");
       var tileCopyObject = JSON.parse(data);
-      tileCopyObject.gridPosition = event.target.id;
+      tileCopyObject.gridPosition = gridIdToTilePosition(event.target.id);
       //? Bit weird: the console log immediately below gives the element id updated
       //with the new grid position (but this update doesn't happen 'til later on in the method).
       //Is this to do with JS asynchronous-ness?
@@ -37,6 +44,8 @@ window.onload = function(){
       player.updateTilePosition(tileCopyObject.id, tileCopyObject.gridPosition);
       event.target.appendChild(draggedCanvas);
       draggedCanvas.id = JSON.stringify(tileCopyObject);
+      console.log('player hand after updating for new position:', player.hand);
+      console.log('drop event target after updating tile canvas id: ', event.target);
     }
   }
 
@@ -48,13 +57,13 @@ window.onload = function(){
     var numberRows = Math.ceil(scrollHeight/49);
     var grid = document.getElementById('grid');
 
-    for (var i = 0; i < numberRows; i++){
+    for (var i = 1; i <= numberRows; i++){
       var row = document.createElement('tr');
       grid.appendChild(row);
 
-      for (var j = 0; j < numberColumns; j++){
+      for (var j = 1; j <= numberColumns; j++){
         var square = document.createElement('td');
-        square.id = "c" + j + "r" + i;
+        square.id = j + "," + i;
         square.ondragover = dragOverHandler;
         square.ondrop = dropHandler;
         row.appendChild(square);
@@ -86,11 +95,14 @@ window.onload = function(){
       var tile = player.hand[i];
       //Note: the line below (?seems to?) update the tile grid position both in the
       //tile variable and in the player's hand.
-      tile.gridPosition = gridSquare.id;
+      tile.gridPosition = gridIdToTilePosition(gridSquare.id);
+      console.log('tile:', tile);
       var tileJSON = JSON.stringify(tile);
+      console.log('tileJSON:', tileJSON);
       var context = canvas.getContext('2d');
 
       canvas.id = tileJSON;
+      console.log('canvas.id', canvas.id);
       canvas.draggable = true;
       canvas.width = 45;
       canvas.height = 45;

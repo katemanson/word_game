@@ -34,7 +34,6 @@ Player.prototype = {
     var tileIndex = this.findTileIndexById(tileId);
     this.hand[tileIndex].gridPosition = newPosition;
   }
-
 }
 
 module.exports = Player;

@@ -1,6 +1,6 @@
 var Tile = function(params){
   this.letter = params.letter;
-  this.gridPosition = params.gridPosition || "";
+  this.gridPosition = params.gridPosition || {column: 0, row: 0};
   this.id = params.id || -1;
 }
 

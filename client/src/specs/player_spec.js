@@ -12,6 +12,29 @@ describe('Player', function(){
     new Tile({letter: "d", id: 3}),
     new Tile({letter: "e", id: 4})
   ];
+  var testTileArrayTwo = [
+    new Tile({letter: "f", gridPosition: "", id: 1}),
+    new Tile({letter: "i", gridPosition: "", id: 1}),
+    new Tile({letter: "r", gridPosition: "", id: 1}),
+    new Tile({letter: "o", gridPosition: "", id: 1}),
+    new Tile({letter: "c", gridPosition: "", id: 1}),
+    new Tile({letter: "e", gridPosition: "", id: 1}),
+    new Tile({letter: "u", gridPosition: "", id: 1}),
+    new Tile({letter: "g", gridPosition: "", id: 1}),
+    new Tile({letter: "h", gridPosition: "", id: 1}),
+    new Tile({letter: "i", gridPosition: "", id: 1}),
+    new Tile({letter: "i", gridPosition: "", id: 1}),
+    new Tile({letter: "e", gridPosition: "", id: 1}),
+    new Tile({letter: "x", gridPosition: "", id: 1}),
+    new Tile({letter: "r", gridPosition: "", id: 1}),
+    new Tile({letter: "t", gridPosition: "", id: 1}),
+    new Tile({letter: "o", gridPosition: "", id: 1}),
+    new Tile({letter: "r", gridPosition: "", id: 1}),
+    new Tile({letter: "v", gridPosition: "", id: 1}),
+    new Tile({letter: "e", gridPosition: "", id: 1}),
+    new Tile({letter: "r", gridPosition: "", id: 1}),
+    new Tile({letter: "t", gridPosition: "", id: 1})
+  ]
 
   beforeEach(function(){
     testPlayer.hand = [];
@@ -57,9 +80,15 @@ describe('Player', function(){
 
   it('should be possible to update grid position of tile in hand', function(){
     testPlayer.getTiles(testTileArray);
-    testPlayer.updateTilePosition(3, "c1r1");
-    assert.equal("c1r1", testPlayer.hand[2].gridPosition);
+    testPlayer.updateTilePosition(3, {column: 2, row: 3});
+    assert.deepEqual({column: 2, row: 3}, testPlayer.hand[2].gridPosition);
     assert.equal(4, testPlayer.hand.length);
   });
+
+  // it('should be possible to identify words based on grid positions of tiles', function(){
+  //   testPlayer.getTiles(testTileArrayTwo);
+  //   testPlayer.getWords();
+  //   assert.equal(7, testPlayer.words.length);
+  // })
 
 });
