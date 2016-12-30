@@ -37,15 +37,17 @@ TileBank.prototype = {
       ['z', 2]
     ];
 
-    //Note: tile id is the index of the tile in the this.tiles array, in its original order.
+    //Note: tile id is the index of the tile in the this.tiles array,
+    //in its original order, plus 1. (Plus 1 because an index of 0 is falsey,
+    //in JavaScript.)
     var counter = 0;
     for (var i = 0; i < tileCounts.length; i++){
-      var letter = tileCounts[i][0];
+      var tileLetter = tileCounts[i][0];
       for (var j = 0; j < tileCounts[i][1]; j++){
-        var tile = new Tile(letter);
+        var tile = new Tile({letter: tileLetter});
+        counter++;
         tile.id = counter;
         this.tiles.push(tile);
-        counter++;
       }
     }
   }

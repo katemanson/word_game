@@ -34,7 +34,7 @@ Game.prototype = {
     for (player of this.players){
       for (var i = 0; i < handSize; i++){
         var randomTile = this.takeRandomTile();
-        player.hand.push(randomTile);
+        player.getTile(randomTile);
       }
     }
   }

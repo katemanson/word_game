@@ -10,7 +10,6 @@ window.onload = function(){
   var player = new Player("Vyvyan");
   game.addPlayer(player);
   game.dealHand(21);
-  console.log('player hand:', player.hand);
 
   var dragStartHandler = function(event){
     event.dataTransfer.setData("text", event.target.id);
@@ -27,18 +26,17 @@ window.onload = function(){
     if (event.target.tagName !== "CANVAS" && event.target.childElementCount === 0){
       event.preventDefault();
       var data = event.dataTransfer.getData("text");
-      var tile = JSON.parse(data);
-      tile.gridPosition = event.target.id;
+      var tileCopyObject = JSON.parse(data);
+      tileCopyObject.gridPosition = event.target.id;
       //? Bit weird: the console log immediately below gives the element id updated
       //with the new grid position (but this update doesn't happen 'til later on in the method).
       //Is this to do with JS asynchronous-ness?
       // console.log('document.getElementById(data)', document.getElementById(data));
-      var draggedElement = document.getElementById(data);
+      var draggedCanvas = document.getElementById(data);
 
-      // !!ToDo!! Need to update hand with tile in new position.
-      event.target.appendChild(draggedElement);
-      draggedElement.id = JSON.stringify(tile);
-      console.log('drop event target after updating tile canvas id: ', event.target);
+      player.updateTilePosition(tileCopyObject.id, tileCopyObject.gridPosition);
+      event.target.appendChild(draggedCanvas);
+      draggedCanvas.id = JSON.stringify(tileCopyObject);
     }
   }
 
@@ -86,6 +84,8 @@ window.onload = function(){
       var gridSquare = document.getElementById('grid').children[0].children[i];
       var canvas = document.createElement('canvas');
       var tile = player.hand[i];
+      //Note: the line below (?seems to?) update the tile grid position both in the
+      //tile variable and in the player's hand.
       tile.gridPosition = gridSquare.id;
       var tileJSON = JSON.stringify(tile);
       var context = canvas.getContext('2d');

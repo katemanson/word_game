@@ -1,7 +1,7 @@
-var Tile = function(letter){
-  this.letter = letter;
-  this.gridPosition = "";
-  this.id = -1;
+var Tile = function(params){
+  this.letter = params.letter;
+  this.gridPosition = params.gridPosition || "";
+  this.id = params.id || -1;
 }
 
 Tile.prototype = {

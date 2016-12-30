@@ -3,28 +3,25 @@ var assert = require('assert');
 
 describe('Tile', function(){
 
-  var testTile = new Tile("a");
+  var testTileOne = new Tile({letter: "a"});
+  var testTileTwo = new Tile({letter: "b", gridPosition: "c0r0", id: 20});
 
   it('should have a letter value', function(){
-    assert.equal("a", testTile.letter);
+    assert.equal("a", testTileOne.letter);
   });
 
-  it('should initially have grid position set to empty string', function(){
-    assert.equal("", testTile.gridPosition);
+  it('should have initial grid position set to empty string, when not provided at setup', function(){
+    assert.equal("", testTileOne.gridPosition);
   });
 
-  it('should be possible to set grid position', function(){
-    testTile.gridPosition = "c1r1";
-    assert.equal("c1r1", testTile.gridPosition);
+  it('should have initial id set to -1, when not provided at setup', function(){
+    assert.equal(-1, testTileOne.id);
   });
 
-  it('should initially have id set to -1', function(){
-    assert.equal(-1, testTile.id);
-  });
-
-  it('should be possible to set id', function(){
-    testTile.id = 20;
-    assert.equal(20, testTile.id);
+  it('should have a letter value, grid position and id, when provided at setup', function(){
+    assert.equal("b", testTileTwo.letter);
+    assert.equal("c0r0", testTileTwo.gridPosition);
+    assert.equal(20, testTileTwo.id);
   });
 
 });
