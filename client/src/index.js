@@ -1,13 +1,11 @@
 var Tile = require('./tile');
-var Bunch = require('./bunch');
+var TileBank = require('./tile_bank');
 var Grid = require('./grid');
 
 window.onload = function(){
 
   var grid = new Grid();
-  var bunch = new Bunch();
-  bunch.shuffle();
-  var hand = bunch.takeHand(21);
+  var hand = tileBank.takeHand(21);
 
   var dragStartHandler = function(event){
     event.dataTransfer.setData("text", event.target.id);

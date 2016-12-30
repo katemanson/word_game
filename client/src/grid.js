@@ -48,6 +48,10 @@ Grid.prototype = {
         row.appendChild(square);
       }
     }
+    console.log('scroller.scrollWidth', scroller.scrollWidth);
+    console.log('window.innerWidth', window.innerWidth);
+    console.log('scroller.scrollWidth - window.innerWidth', scroller.scrollWidth - window.innerWidth);
+    console.log('scroller.scrollLeft', scroller.scrollLeft);
 
     this.scrollGrid(scroller, grid);
   },
@@ -55,10 +59,6 @@ Grid.prototype = {
   scrollGrid: function(scroller, grid){
     if (scroller.scrollWidth - window.innerWidth >= scroller.scrollLeft){
       // console.log('in scrollGrid if statement');
-      // console.log('scrollWidth', scroller.scrollWidth);
-      // console.log('window.innerWidth', window.innerWidth);
-      // console.log('scroller.scrollWidth - window.innerWidth', scroller.scrollWidth - window.innerWidth);
-      // console.log('scroller.scrollLeft', scroller.scrollLeft);
     }
   }
 }

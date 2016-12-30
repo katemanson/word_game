@@ -1,14 +1,13 @@
 var Tile = require('./tile');
-var shuffle = require('lodash/shuffle');
 
-var Bunch = function(){
+var TileBank = function(){
   this.tiles = [];
-  this.makeBunch();
+  this.makeTileBank();
 }
 
-Bunch.prototype = {
+TileBank.prototype = {
 
-  makeBunch: function(){
+  makeTileBank: function(){
     var tileCounts = [
       ['a', 13],
       ['b', 3],
@@ -49,27 +48,8 @@ Bunch.prototype = {
         counter++;
       }
     }
-  },
-
-  shuffle: function(){
-    this.tiles = shuffle(this.tiles);
-  },
-
-  takeRandomTile: function(){
-    var randomIndex = Math.floor(Math.random() * this.tiles.length);
-    var randomTile = this.tiles[randomIndex];
-    this.tiles.splice(randomIndex, 1);
-    return randomTile;
-  },
-
-  takeHand: function(handSize){
-    var hand = [];
-    for (var i = 0; i < handSize; i++){
-      var randomTile = this.takeRandomTile();
-      hand.push(randomTile);
-    }
-    return hand;
   }
+
 }
 
-module.exports = Bunch;
+module.exports = TileBank;
