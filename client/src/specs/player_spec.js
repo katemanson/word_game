@@ -88,8 +88,7 @@ describe('Player', function(){
   it('should be possible to identify words based on grid positions of tiles', function(){
     testPlayer.getTiles(testTileArrayTwo);
     testPlayer.getWords();
-    // testPlayer.getWords();
-    // assert.equal(7, testPlayer.words.length);
+    assert.equal(7, testPlayer.words.length);
   })
 
 });

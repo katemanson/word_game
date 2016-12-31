@@ -1,11 +1,9 @@
-// var Grid = require('./grid');
 var find = require('lodash/find');
 var sortBy = require('lodash/sortBy');
 
 var Player = function(name){
   this.name = name;
   this.hand = [];
-  // this.grid = new Grid();
   this.words = [];
 }
 
@@ -36,53 +34,56 @@ Player.prototype = {
     this.hand[tileIndex].gridPosition = newPosition;
   },
 
-  getWords: function(){
-    //find the min and max column numbers
-    var handSortedByColumn = sortBy(this.hand, [function(tile){
-      return tile.gridPosition.column;
+  //? Next method requires either "column" or "row" (as String) as parameter.
+  // Not sure this is clear enough in the 'raw' code.
+  getWordsIn: function(specifyColumnOrRow){
+    //find the min and max column/row numbers
+    var handSortedByColumnOrRow = sortBy(this.hand, [function(tile){
+      return tile.gridPosition[specifyColumnOrRow];
     }]);
-    var firstColumn = handSortedByColumn[0].gridPosition.column;
-    var lastColumn = handSortedByColumn[handSortedByColumn.length - 1].gridPosition.column;
-    console.log('handSortedByColumn', handSortedByColumn);
-    console.log('firstColumn', firstColumn);
-    console.log('lastColumn', lastColumn);
+    var firstColumnOrRow = handSortedByColumnOrRow[0].gridPosition[specifyColumnOrRow];
+    var lastColumnOrRow = handSortedByColumnOrRow[handSortedByColumnOrRow.length - 1].gridPosition[specifyColumnOrRow];
 
-    //group tiles in the same columns
-    var handGroupedByColumn = [];
-    for (var i = firstColumn; i <= lastColumn; i++){
-      var tilesInColumnI = handSortedByColumn.filter(function(tile){
-        return tile.gridPosition.column === i;
+    //group tiles in the same column/row
+    var handGroupedByColumnOrRow = [];
+    for (var i = firstColumnOrRow; i <= lastColumnOrRow; i++){
+      var tilesInColumnOrRowI = handSortedByColumnOrRow.filter(function(tile){
+        return tile.gridPosition[specifyColumnOrRow] === i;
       });
-      handGroupedByColumn.push(tilesInColumnI);
+      handGroupedByColumnOrRow.push(tilesInColumnOrRowI);
     }
-    console.log('handGroupedByColumn', handGroupedByColumn);
 
-    //order by row number
-    var handGroupedByColumnSortedByRow = [];
-    for (var group of handGroupedByColumn){
-      var sortedByRow = sortBy(group, [function(tile){
-        return tile.gridPosition.row;
+    //order by row/column number
+    var specifyRowOrColumn = "";
+    if (specifyColumnOrRow === "column"){
+      specifyRowOrColumn = "row";
+    } else {
+      specifyRowOrColumn = "column";
+    }
+
+    var handGroupedByColumnOrRowSortedByRowOrColumn = [];
+    for (var group of handGroupedByColumnOrRow){
+      var sortedByRowOrColumn = sortBy(group, [function(tile){
+        return tile.gridPosition[specifyRowOrColumn];
       }]);
-      handGroupedByColumnSortedByRow.push(sortedByRow);
+      handGroupedByColumnOrRowSortedByRowOrColumn.push(sortedByRowOrColumn);
     }
-    console.log('handGroupedByColumnSortedByRow', handGroupedByColumnSortedByRow);
 
-    //group tiles with consecutive row numbers
+    //group tiles with consecutive row/column numbers
     /*  Note: following loopy bit based on first answer at
         http://stackoverflow.com/questions/22627125/grouping-consecutive-elements-together-using-javascript */
     var tilesFormingWords = [];
     var difference;
     var holder = [];
-    for (var group of handGroupedByColumnSortedByRow){
-      console.log('difference', difference);
+    for (var group of handGroupedByColumnOrRowSortedByRowOrColumn){
       for (var i = 0; i < group.length; i++){
-        if (difference !== (group[i].gridPosition.row - i) && difference !== undefined ){
+        if (difference !== (group[i].gridPosition[specifyRowOrColumn] - i) && difference !== undefined ){
           if (holder.length > 1){
             tilesFormingWords.push(holder);
           }
           holder = [];
         }
-        difference = group[i].gridPosition.row - i;
+        difference = group[i].gridPosition[specifyRowOrColumn] - i;
         holder.push(group[i]);
       }
       if (holder.length){
@@ -93,27 +94,29 @@ Player.prototype = {
       }
       difference = undefined;
     }
-    console.log('tilesFormingWords:', tilesFormingWords);
 
     //for consecutive tiles, concatenate letters to make words, add each word
-    //to player's words array
-
+    //to player's this.words attribute
     var lettersOfWord = [];
     var word = "";
     for (var tilesFormingWord of tilesFormingWords){
       lettersOfWord = tilesFormingWord.map(function(tile){
         return tile.letter;
       });
-      console.log('lettersOfWord', lettersOfWord);
       word = lettersOfWord.join("");
-      console.log('word', word);
       this.words.push(word);
       lettersOfWord = [];
       word = "";
     }
-    console.log('this.words', this.words);
+  },
 
-    //repeat for rows
+  getWords: function(){
+    //ToDo: Is this if statement needed?
+    if (this.words.length){
+      this.words = [];
+    }
+    this.getWordsIn("column");
+    this.getWordsIn("row");
   }
 }
 
