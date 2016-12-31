@@ -10,7 +10,6 @@ window.onload = function(){
   var player = new Player("Vyvyan");
   game.addPlayer(player);
   game.dealHand(21);
-  console.log('player hand:', player.hand);
 
   var gridIdToTilePosition = function(gridSquareId){
     var columnNumber = Number(gridSquareId.split(",")[0]);
@@ -44,8 +43,6 @@ window.onload = function(){
       player.updateTilePosition(tileCopyObject.id, tileCopyObject.gridPosition);
       event.target.appendChild(draggedCanvas);
       draggedCanvas.id = JSON.stringify(tileCopyObject);
-      console.log('player hand after updating for new position:', player.hand);
-      console.log('drop event target after updating tile canvas id: ', event.target);
     }
   }
 
@@ -96,13 +93,10 @@ window.onload = function(){
       //Note: the line below (?seems to?) update the tile grid position both in the
       //tile variable and in the player's hand.
       tile.gridPosition = gridIdToTilePosition(gridSquare.id);
-      console.log('tile:', tile);
       var tileJSON = JSON.stringify(tile);
-      console.log('tileJSON:', tileJSON);
       var context = canvas.getContext('2d');
 
       canvas.id = tileJSON;
-      console.log('canvas.id', canvas.id);
       canvas.draggable = true;
       canvas.width = 45;
       canvas.height = 45;
