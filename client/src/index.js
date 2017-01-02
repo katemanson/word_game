@@ -10,7 +10,7 @@ window.onload = function(){
   var game = new Game();
   var player = new Player("Vyvyan");
   game.addPlayer(player);
-  game.dealHand(21);
+  game.dealHand(1);
 
   var gridIdToTilePosition = function(gridSquareId){
     var columnNumber = Number(gridSquareId.split(",")[0]);
@@ -21,6 +21,7 @@ window.onload = function(){
 
   var dragStartHandler = function(event){
     event.dataTransfer.setData("text", event.target.id);
+    console.log('tile drag start');
   }
 
   var gridDragOverHandler = function(event){
@@ -31,19 +32,42 @@ window.onload = function(){
 
   var swapDragOverHandler = function(event){
     event.preventDefault();
-    var swapZone = document.getElementById('swap-zone');
-    swapZone.style.background = "#FFB21E";
   }
 
   var swapDropHandler = function(event){
     event.preventDefault();
+
     var data = event.dataTransfer.getData("text");
     var draggedCanvas = document.getElementById(data);
     var tile = JSON.parse(data);
+    console.log('tile to be swapped:', tile);
 
     draggedCanvas.parentNode.removeChild(draggedCanvas);
-    tile.gridPosition = {column: 0, row: 0};
-    game.swap(player, tile);
+    var tilesReturned = game.swapTile(player, tile, 3);
+    console.log('tiles returned by swap:', tilesReturned);
+    console.log('player hand after swap:', player.hand);
+
+    var swapZone = document.getElementById('swap-zone');
+    var tileSpace = document.getElementById('placeholder-tile-space');
+    swapZone.removeChild(tileSpace);
+    for (var i = 0; i < tilesReturned.length; i++){
+      var newTileSpace = document.createElement('p');
+      newTileSpace.setAttribute("class", "tile-space");
+      swapZone.appendChild(newTileSpace);
+      var canvas = document.createElement('canvas');
+      newTileSpace.appendChild(canvas);
+      //append canvas to a tile space in swap zone
+      var tile = tilesReturned[i];
+      var tileJSON = JSON.stringify(tile);
+      var context = canvas.getContext('2d');
+
+      canvas.id = tileJSON;
+      canvas.draggable = true;
+      canvas.width = 45;
+      canvas.height = 45;
+      canvas.ondragstart = dragStartHandler;
+      tile.draw(context);
+    }
   }
 
   var gridDropHandler = function(event){
@@ -60,6 +84,8 @@ window.onload = function(){
       player.updateTilePosition(tileCopyObject.id, tileCopyObject.gridPosition);
       event.target.appendChild(draggedCanvas);
       draggedCanvas.id = JSON.stringify(tileCopyObject);
+      console.log('player.hand after grid drop:', player.hand);
+      console.log('canvas id after grid drop:', draggedCanvas.id);
     }
   }
 
@@ -84,9 +110,6 @@ window.onload = function(){
       }
     }
 
-    var swapZone = document.getElementById('swap-zone');
-    swapZone.ondragover = swapDragOverHandler;
-    swapZone.ondrop = swapDropHandler;
 
     // console.log('scroller.scrollWidth', scroller.scrollWidth);
     // console.log('window.innerWidth', window.innerWidth);
@@ -155,4 +178,8 @@ window.onload = function(){
   showHand();
   checkWords("lenticular");
 
+  //ToDo: Where should this bit go?
+  var swapZone = document.getElementById('swap-zone');
+  swapZone.ondragover = swapDragOverHandler;
+  swapZone.ondrop = swapDropHandler;
 }

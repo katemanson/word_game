@@ -43,13 +43,20 @@ Game.prototype = {
     this.tileBank.tiles.push(tile);
   },
 
-  swapTile: function(player, tile, numberOfTilesToGiveBack){
-    player.removeTile(tile);
+  swapTile: function(player, tileToBeSwapped, numberOfTilesToGiveBack){
+    player.removeTile(tileToBeSwapped);
+    var tilesReturned = [];
     for (var i = 0; i < numberOfTilesToGiveBack; i++){
       var randomTile = this.takeRandomTile();
       player.getTile(randomTile);
+      tilesReturned.push(randomTile);
     }
-    this.addTileToBank(tile);
+    console.log('tiles returned from bank:', tilesReturned);
+    if (tileToBeSwapped.gridPosition){
+      tileToBeSwapped.gridPosition = {column: 0, row: 0};
+    }
+    this.addTileToBank(tileToBeSwapped);
+    return tilesReturned;
   }
 
 };
