@@ -51,12 +51,26 @@ Game.prototype = {
       player.getTile(randomTile);
       tilesReturned.push(randomTile);
     }
-    console.log('tiles returned from bank:', tilesReturned);
     if (tileToBeSwapped.gridPosition){
       tileToBeSwapped.gridPosition = {column: 0, row: 0};
     }
     this.addTileToBank(tileToBeSwapped);
     return tilesReturned;
+  },
+
+  twist: function(playerTwisting, numberOfTilesToDeal){
+    for (player of this.players){
+      for (var i = 0; i < numberOfTilesToDeal; i++){
+        var randomTile = this.takeRandomTile();
+        player.getTile(randomTile);
+      }
+    }
+    //ToDo: include check for hand used up (no gaps, lone tiles)
+    // if(playerTwisting.checkHandUsedUp()){
+    //
+    // } else {
+    //   //query twist with player
+    // }
   }
 
 };

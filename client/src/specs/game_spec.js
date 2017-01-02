@@ -23,6 +23,10 @@ describe('Game', function(){
   beforeEach(function(){
     testGame.players = [];
     testGame.tileBank = new TileBank();
+    testPlayerOne.hand = [];
+    testPlayerTwo.hand = [];
+    testPlayerThree.hand = [];
+    testPlayerFour.hand = [];
   });
 
   it('should start with no players', function(){
@@ -86,6 +90,24 @@ describe('Game', function(){
     testGame.swapTile(testPlayerOne, testPlayerOne.hand[0], 3);
     assert.equal(6, testPlayerOne.hand.length);
     assert.equal(142, testGame.tileBank.tiles.length);
+  });
+
+  it('should be possible for a player to twist so that all players get a new tile', function(){
+    var players = [testPlayerOne, testPlayerTwo, testPlayerThree, testPlayerFour];
+    testGame.addPlayers(players);
+    testGame.shuffleTiles();
+    testGame.dealHand(3);
+    assert.equal(3, testPlayerOne.hand.length);
+    assert.equal(3, testPlayerTwo.hand.length);
+    assert.equal(3, testPlayerThree.hand.length);
+    assert.equal(3, testPlayerFour.hand.length);
+    assert.equal(132, testGame.tileBank.tiles.length);
+    testGame.twist(testPlayerThree, 1);
+    assert.equal(4, testPlayerOne.hand.length);
+    assert.equal(4, testPlayerTwo.hand.length);
+    assert.equal(4, testPlayerThree.hand.length);
+    assert.equal(4, testPlayerFour.hand.length);
+    assert.equal(128, testGame.tileBank.tiles.length);
   });
 
 });

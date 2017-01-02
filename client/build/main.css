@@ -75,10 +75,11 @@ canvas {
   font-family: monospace;
 	text-align: center;
   padding: 5px;
-  margin: 10px;
-  display: block;
+  margin: 20px;
+	display: table;
   position: fixed;
-  right: 10px;
+  right: 20px;
+	opacity: 0.8;
 }
 
 .tile-space {
@@ -88,8 +89,7 @@ canvas {
   border: 2px solid #808080;
   border-radius: 5px;
 	display: inline-block;
-	margin: 10px 3px;
-	vertical-align: middle;
+	margin: 10px 5px;
 }
 
 #grid-container {
@@ -130,6 +130,10 @@ canvas {
   display: none;
 }
 
-#deal-button {
-  /*display: none;*/
+#swap-zone {
+	top: 20px;
+}
+
+#twist-button {
+	top: 150px;
 }

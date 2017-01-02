@@ -10,7 +10,7 @@ window.onload = function(){
   var game = new Game();
   var player = new Player("Vyvyan");
   game.addPlayer(player);
-  game.dealHand(1);
+  game.dealHand(21);
 
   var gridIdToTilePosition = function(gridSquareId){
     var columnNumber = Number(gridSquareId.split(",")[0]);
@@ -21,7 +21,6 @@ window.onload = function(){
 
   var dragStartHandler = function(event){
     event.dataTransfer.setData("text", event.target.id);
-    console.log('tile drag start');
   }
 
   var gridDragOverHandler = function(event){
@@ -40,12 +39,9 @@ window.onload = function(){
     var data = event.dataTransfer.getData("text");
     var draggedCanvas = document.getElementById(data);
     var tile = JSON.parse(data);
-    console.log('tile to be swapped:', tile);
 
     draggedCanvas.parentNode.removeChild(draggedCanvas);
     var tilesReturned = game.swapTile(player, tile, 3);
-    console.log('tiles returned by swap:', tilesReturned);
-    console.log('player hand after swap:', player.hand);
 
     var swapZone = document.getElementById('swap-zone');
     var tileSpace = document.getElementById('placeholder-tile-space');
@@ -84,8 +80,6 @@ window.onload = function(){
       player.updateTilePosition(tileCopyObject.id, tileCopyObject.gridPosition);
       event.target.appendChild(draggedCanvas);
       draggedCanvas.id = JSON.stringify(tileCopyObject);
-      console.log('player.hand after grid drop:', player.hand);
-      console.log('canvas id after grid drop:', draggedCanvas.id);
     }
   }
 
@@ -178,7 +172,7 @@ window.onload = function(){
   showHand();
   checkWords("lenticular");
 
-  //ToDo: Where should this bit go?
+  // ToDo: Where should this bit go?
   var swapZone = document.getElementById('swap-zone');
   swapZone.ondragover = swapDragOverHandler;
   swapZone.ondrop = swapDropHandler;

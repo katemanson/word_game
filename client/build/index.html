@@ -8,14 +8,17 @@
   </head>
   <body>
     <div id="grid-container">
+      <!-- ? Difficulty of getting the buttons to have absolute (fixed) positioning
+      while avoiding overlap dealt with by wrapping each new button inside the last;
+      seems a bit of a smelly solution, though? -->
       <table id="grid">
-        <!-- <button id="deal-button" class="button" type="button" name="deal">Deal</button> -->
         <div id="swap-zone" class="tile-wrangler">
           <p>Swap a tile</p>
           <p id="placeholder-tile-space" class="tile-space"></p>
         </div>
-        <!-- <button id="twist-button" class="button" type="button" name="twist">Twist<p class="button-tip">Get a new tile. (Once you've used up the ones you've got.)</p></button> -->
-        <!-- <button id="submit-button" class="button" type="button" name="submit">Submit</button> -->
+        <div id="twist-button" class="tile-wrangler">
+          <p>Twist</p>
+        </div>
       </table>
     </div>
     <div id="info-window-container">
