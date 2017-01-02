@@ -93,6 +93,12 @@ describe('Player', function(){
     testPlayer.getTiles(testTileArrayTwo);
     testPlayer.getWords();
     assert.equal(7, testPlayer.words.length);
-  })
+  });
+
+  it('should be possible to remove a tile from hand', function(){
+    testPlayer.getTiles(testTileArray);
+    testPlayer.removeTile(testTileArray[2]);
+    assert.equal(3, testPlayer.hand.length);
+  });
 
 });

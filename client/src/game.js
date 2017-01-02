@@ -39,6 +39,19 @@ Game.prototype = {
     }
   },
 
+  addTileToBank: function(tile){
+    this.tileBank.tiles.push(tile);
+  },
+
+  swapTile: function(player, tile, numberOfTilesToGiveBack){
+    player.removeTile(tile);
+    for (var i = 0; i < numberOfTilesToGiveBack; i++){
+      var randomTile = this.takeRandomTile();
+      player.getTile(randomTile);
+    }
+    this.addTileToBank(tile);
+  }
+
 };
 
 module.exports = Game;

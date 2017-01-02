@@ -35,6 +35,11 @@ Player.prototype = {
     this.hand[tileIndex].gridPosition = newPosition;
   },
 
+  removeTile: function(tile){
+    var tileIndex = this.findTileIndexById(tile.id);
+    this.hand.splice(tileIndex, 1);
+  },
+
   //? Next method requires either "column" or "row" (as String) as parameter.
   // Don't think this is clear enough in the code.
   getWordsIn: function(specifyColumnOrRow){

@@ -23,13 +23,30 @@ window.onload = function(){
     event.dataTransfer.setData("text", event.target.id);
   }
 
-  var dragOverHandler = function(event){
+  var gridDragOverHandler = function(event){
     if (event.target.tagName !== "CANVAS" && event.target.childElementCount === 0){
       event.preventDefault();
     }
   }
 
-  var dropHandler = function(event){
+  var swapDragOverHandler = function(event){
+    event.preventDefault();
+    var swapZone = document.getElementById('swap-zone');
+    swapZone.style.background = "#FFB21E";
+  }
+
+  var swapDropHandler = function(event){
+    event.preventDefault();
+    var data = event.dataTransfer.getData("text");
+    var draggedCanvas = document.getElementById(data);
+    var tile = JSON.parse(data);
+
+    draggedCanvas.parentNode.removeChild(draggedCanvas);
+    tile.gridPosition = {column: 0, row: 0};
+    game.swap(player, tile);
+  }
+
+  var gridDropHandler = function(event){
     if (event.target.tagName !== "CANVAS" && event.target.childElementCount === 0){
       event.preventDefault();
       var data = event.dataTransfer.getData("text");
@@ -40,7 +57,6 @@ window.onload = function(){
       //Is this to do with JS asynchronous-ness?
       // console.log('document.getElementById(data)', document.getElementById(data));
       var draggedCanvas = document.getElementById(data);
-
       player.updateTilePosition(tileCopyObject.id, tileCopyObject.gridPosition);
       event.target.appendChild(draggedCanvas);
       draggedCanvas.id = JSON.stringify(tileCopyObject);
@@ -62,11 +78,16 @@ window.onload = function(){
       for (var j = 1; j <= numberColumns; j++){
         var square = document.createElement('td');
         square.id = j + "," + i;
-        square.ondragover = dragOverHandler;
-        square.ondrop = dropHandler;
+        square.ondragover = gridDragOverHandler;
+        square.ondrop = gridDropHandler;
         row.appendChild(square);
       }
     }
+
+    var swapZone = document.getElementById('swap-zone');
+    swapZone.ondragover = swapDragOverHandler;
+    swapZone.ondrop = swapDropHandler;
+
     // console.log('scroller.scrollWidth', scroller.scrollWidth);
     // console.log('window.innerWidth', window.innerWidth);
     // console.log('scroller.scrollWidth - window.innerWidth', scroller.scrollWidth - window.innerWidth);

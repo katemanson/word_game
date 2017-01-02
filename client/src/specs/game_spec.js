@@ -12,6 +12,13 @@ describe('Game', function(){
   var testPlayerTwo = new Player("Mike");
   var testPlayerThree = new Player("Neil");
   var testPlayerFour = new Player("Vyvyan");
+  var testTile = new Tile({letter: "a"});
+  var testTileArray = [
+    new Tile({letter: "a", id: 1}),
+    new Tile({letter: "b", id: 2}),
+    new Tile({letter: "c", id: 3}),
+    new Tile({letter: "d", id: 4})
+  ];
 
   beforeEach(function(){
     testGame.players = [];
@@ -65,5 +72,20 @@ describe('Game', function(){
     assert.equal(60, testGame.tileBank.tiles.length);
   });
 
+  it('should be possible to add a tile to the bank', function(){
+    testGame.addTileToBank(testTile);
+    assert.equal(145, testGame.tileBank.tiles.length);
+    assert.deepEqual(testTile, testGame.tileBank.tiles[testGame.tileBank.tiles.length - 1]);
+  });
+
+  it("should return a player's swapped tile to bank and deal three new tiles to that player", function(){
+    testGame.addPlayer(testPlayerOne);
+    testPlayerOne.hand = [];
+    testPlayerOne.getTiles(testTileArray);
+    assert.equal(4, testPlayerOne.hand.length);
+    testGame.swapTile(testPlayerOne, testPlayerOne.hand[0], 3);
+    assert.equal(6, testPlayerOne.hand.length);
+    assert.equal(142, testGame.tileBank.tiles.length);
+  });
 
 });

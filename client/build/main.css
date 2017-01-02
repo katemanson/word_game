@@ -65,38 +65,59 @@ canvas {
   vertical-align: middle;
 }
 
-.button {
-  width: 160px;
+.tile-wrangler {
+  width: 200px;
   height: auto;
+	border: 2px solid #808080;
   border-radius: 20px;
   background: #FFE12B;
-  font-size: 30px;
+  font-size: 25px;
   font-family: monospace;
-  padding: 10px;
+	text-align: center;
+  padding: 5px;
   margin: 10px;
-  display: block
+  display: block;
+  position: fixed;
+  right: 10px;
 }
 
-.button:hover {
+/*.tile-wrangler:hover {
   background: #FFB21E;
 }
-
-.button-tip {
+*/
+.tile-wrangler-tip {
   font-size: 0.4em;
 }
+
+.tile-space {
+  width: 49px;
+  height: 49px;
+	background: #ccc;
+  border: 2px solid #808080;
+  border-radius: 5px;
+	display: inline-block;
+	text-align: center;
+	margin: 10px 5px;
+}
+
+.tile-space.left,
+.tile-space.right {
+	display: none;
+}
+
 
 #grid-container {
   width: 100%;
   overflow: scroll;
 }
 
-#button-container {
+/*#button-container {
   background: rgba(204,204,204,0.3);
   height: 100%;
   position: fixed;
-  right: 10px;
+  right: 10px;*/
   /*display: none;*/
-}
+/*}*/
 
 #grid {
   counter-reset: row 0;
@@ -132,5 +153,5 @@ canvas {
 }
 
 #deal-button {
-  display: none;
+  /*display: none;*/
 }

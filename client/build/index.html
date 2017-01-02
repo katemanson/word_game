@@ -8,13 +8,23 @@
   </head>
   <body>
     <div id="grid-container">
-      <div id="button-container">
-        <button id="deal-button" class="button" type="button" name="deal">Deal</button>
-        <button id="swap-button" class="button" type="button" name="swap">Swap<p class="button-tip">Stuck with a tile?<br>Swap it for<br>three others.</p></button>
-        <button id="twist-button" class="button" type="button" name="twist">Twist<p class="button-tip">Get a new tile. (Once you've used up the ones you've got.)</p></button>
-        <button id="submit-button" class="button" type="button" name="submit">Submit</button>
-      </div>
-      <table id="grid"></table>
+      <table id="grid">
+        <!-- <button id="deal-button" class="button" type="button" name="deal">Deal</button> -->
+        <div id="swap-zone" class="tile-wrangler">
+          <p>Swap a tile</p>
+          <p class="tile-space left"></p><!--- commented out to eliminate space between <p>s
+          --><p class="tile-space middle"></p><!--- commented out to eliminate space between <p>s
+          --><p class="tile-space right"></p>
+          <!-- <p class="tile-wrangler-tip">
+            Stuck with a tile?<br>
+            You can swap it for three others.
+          </p> -->
+        </div>
+        <!-- <button id="twist-button" class="button" type="button" name="twist">Twist<p class="button-tip">Get a new tile. (Once you've used up the ones you've got.)</p></button> -->
+        <!-- <button id="submit-button" class="button" type="button" name="submit">Submit</button> -->
+      </table>
+      <!-- <div id="button-container"> -->
+      <!-- </div> -->
     </div>
     <div id="info-window-container">
     </div>
