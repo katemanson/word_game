@@ -1,4 +1,4 @@
-// var Grid = require('./grid');
+// var GridView = require('./grid_view');
 var Game = require('./game');
 var Player = require('./player');
 var Tile = require('./tile');
@@ -6,6 +6,7 @@ var TileBank = require('./tile_bank');
 
 window.onload = function(){
 
+  // var grid = new GridView();
   var game = new Game();
   var player = new Player("Vyvyan");
   game.addPlayer(player);
@@ -106,7 +107,31 @@ window.onload = function(){
     }
   }
 
+  var checkWords = function(word){
+    //url adds 'entries/en/' and word to base url; needed to retrieve dictionary
+    //entry for the word
+    //word parameter needs to be in form of api's 'word_id' (see
+    //https://developer.oxforddictionaries.com/documentation/making-requests-to-the-api)
+    //-- this means a url-encoded string, lower case (also any spaces replaced
+    //with underscores - although words queried here won't include spaces)
+    var url = 'https://od-api.oxforddictionaries.com/api/v1/entries/en/' + word;
+    var request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.setRequestHeader("Accept","application/json");
+    request.setRequestHeader("app_id","3fb114a3");
+    request.setRequestHeader("app_key","b6574f7d1ba83ba2414f233f465e4d06");
+    request.onload = function(){
+      console.log(request.status);
+      if (request.status === 200){
+        var wordEntry = JSON.parse(request.responseText);
+        console.log('word entry from api:', wordEntry);
+      }
+    }
+    request.send(null);
+  }
+
   makeGrid();
   showHand();
+  checkWords("lenticular");
 
 }

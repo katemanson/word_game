@@ -1,20 +1,101 @@
+/* ========================================================================== */
+/* Eric Meyer's reset (via Shay Howe recommendation; http://learn.shayhowe.com),
+   with tweaks: */
+/* ========================================================================== */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
 body {
-  margin: 0;
+	line-height: 1;
 }
 
-/*ToDo: Make grid-container div scrollable, rather than body?*/
-div {
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-}
-
-canvas {
-  display: inline;
+ol, ul {
+	list-style: none;
 }
 
 table {
-  border-collapse: collapse;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* ========================================================================== */
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/*ToDo: Make grid-container div scrollable, rather than body?*/
+canvas {
+  display: inline-block;
+  margin: 0;
+  border-width: 0;
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.button {
+  width: 160px;
+  height: auto;
+  border-radius: 20px;
+  background: #FFE12B;
+  font-size: 30px;
+  font-family: monospace;
+  padding: 10px;
+  margin: 10px;
+  display: block
+}
+
+.button:hover {
+  background: #FFB21E;
+}
+
+.button-tip {
+  font-size: 0.4em;
+}
+
+#grid-container {
+  width: 100%;
+  overflow: scroll;
+}
+
+#button-container {
+  background: rgba(204,204,204,0.3);
+  height: 100%;
+  position: fixed;
+  right: 10px;
+  /*display: none;*/
 }
 
 #grid {
@@ -23,6 +104,10 @@ table {
 
 #grid tr {
   counter-reset: column 0;
+  counter-increment: row 1;
+  height: 49px;
+  min-height: 49px;
+  max-height: 49px;
 }
 
 #grid th,
@@ -33,23 +118,19 @@ table {
   height: 49px;
   min-height: 49px;
   max-height: 49px;
-  border: 2px solid #33ccff;
+  border: 2px solid #ccc;
   border-spacing: 0;
   padding: 0;
   margin: 0;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#grid tr {
-  height: 49px;
-  min-height: 49px;
-  max-height: 49px;
-  counter-increment: row 1;
+  text-align: center
 }
 
 #grid tr td:before {
   counter-increment: column 1;
   content: "c" counter(column, decimal) "r" counter(row, decimal);
+  display: none;
+}
+
+#deal-button {
   display: none;
 }

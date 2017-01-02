@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Player', function(){
 
-  var testPlayer = new Player("Fred");
+  var testPlayer = new Player({name: "Fred"});
   var testTileOne = new Tile({letter: "a"});
   var testTileArray = [
     new Tile({letter: "b", id: 1}),
@@ -42,6 +42,10 @@ describe('Player', function(){
 
   it('should have a name', function(){
     assert.equal("Fred", testPlayer.name);
+  });
+
+  it('should start with no id', function(){
+    assert.equal("", testPlayer.id);
   });
 
   it('should start with an empty hand', function(){

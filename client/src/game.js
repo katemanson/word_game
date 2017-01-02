@@ -37,7 +37,7 @@ Game.prototype = {
         player.getTile(randomTile);
       }
     }
-  }
+  },
 
 };
 

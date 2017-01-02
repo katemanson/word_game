@@ -1,8 +1,9 @@
 var find = require('lodash/find');
 var sortBy = require('lodash/sortBy');
 
-var Player = function(name){
-  this.name = name;
+var Player = function(params){
+  this.id = "";
+  this.name = params.name;
   this.hand = [];
   this.words = [];
 }
@@ -35,7 +36,7 @@ Player.prototype = {
   },
 
   //? Next method requires either "column" or "row" (as String) as parameter.
-  // Not sure this is clear enough in the 'raw' code.
+  // Don't think this is clear enough in the code.
   getWordsIn: function(specifyColumnOrRow){
     //find the min and max column/row numbers
     var handSortedByColumnOrRow = sortBy(this.hand, [function(tile){
@@ -70,7 +71,8 @@ Player.prototype = {
     }
 
     //group tiles with consecutive row/column numbers
-    /*  Note: following loopy bit based on first answer at
+    /*  Note: the following bit (with the nested for loops and if statements)
+        is based on the first answer at
         http://stackoverflow.com/questions/22627125/grouping-consecutive-elements-together-using-javascript */
     var tilesFormingWords = [];
     var difference;
@@ -96,7 +98,7 @@ Player.prototype = {
     }
 
     //for consecutive tiles, concatenate letters to make words, add each word
-    //to player's this.words attribute
+    //to player's this.words array
     var lettersOfWord = [];
     var word = "";
     for (var tilesFormingWord of tilesFormingWords){

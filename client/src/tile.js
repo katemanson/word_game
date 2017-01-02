@@ -8,8 +8,8 @@ Tile.prototype = {
 
   draw: function(context){
 
-    context.strokeStyle = 'black';
-    context.lineWidth = 1;
+    // context.strokeStyle = 'black';
+    // context.lineWidth = 1;
     context.fillStyle = '#efd19f';
 
     context.beginPath();
@@ -23,7 +23,7 @@ Tile.prototype = {
     context.lineTo(0,5);
     context.arcTo(0,0,5,0,5);
     context.fill();
-    context.stroke();
+    // context.stroke();
 
     context.fillStyle = 'black';
     context.font = '40px Arial';
