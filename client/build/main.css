@@ -82,6 +82,10 @@ canvas {
 	opacity: 0.8;
 }
 
+/*.tile-wrangler:hover {
+	background: #FFB21E;
+}
+*/
 .tile-space {
   width: 49px;
   height: 49px;
@@ -90,6 +94,7 @@ canvas {
   border-radius: 5px;
 	display: inline-block;
 	margin: 10px 5px;
+	vertical-align: middle;
 }
 
 #grid-container {
@@ -136,4 +141,9 @@ canvas {
 
 #twist-button {
 	top: 150px;
+}
+
+#twist-button:hover {
+	background: #FFB21E;
+	cursor: pointer;
 }

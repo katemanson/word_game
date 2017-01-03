@@ -83,6 +83,11 @@ window.onload = function(){
     }
   }
 
+  var twistHandler = function(event){
+    console.log('twist button click event:', event);
+    
+  }
+
   var makeGrid = function(){
     var scroller = document.scrollingElement;
     var scrollWidth = scroller.scrollWidth;
@@ -176,4 +181,6 @@ window.onload = function(){
   var swapZone = document.getElementById('swap-zone');
   swapZone.ondragover = swapDragOverHandler;
   swapZone.ondrop = swapDropHandler;
+  var twistButton = document.getElementById('twist-button');
+  twistButton.addEventListener('click', twistHandler, false);
 }
