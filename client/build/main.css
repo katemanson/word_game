@@ -57,7 +57,7 @@ table {
 
 /*ToDo: Make grid-container div scrollable, rather than body?*/
 canvas {
-  display: inline-block;
+  /*display: inline-block;*/
   margin: 0;
   border-width: 0;
   padding: 0;
@@ -76,16 +76,12 @@ canvas {
 	text-align: center;
   padding: 5px;
   margin: 20px;
-	display: table;
+	/*display: table;*/
   position: fixed;
   right: 20px;
 	opacity: 0.8;
 }
 
-/*.tile-wrangler:hover {
-	background: #FFB21E;
-}
-*/
 .tile-space {
   width: 49px;
   height: 49px;
@@ -99,11 +95,11 @@ canvas {
 
 #grid-container {
   width: 100%;
-  overflow: scroll;
 }
 
 #grid {
   counter-reset: row 0;
+	overflow: scroll;
 }
 
 #grid tr {

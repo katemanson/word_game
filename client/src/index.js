@@ -85,22 +85,21 @@ window.onload = function(){
 
   var twistHandler = function(event){
     console.log('twist button click event:', event);
-    
   }
 
   var makeGrid = function(){
-    var scroller = document.scrollingElement;
-    var scrollWidth = scroller.scrollWidth;
-    var scrollHeight = scroller.scrollHeight;
-    var numberColumns = Math.ceil(scrollWidth/49);
-    var numberRows = Math.ceil(scrollHeight/49);
+    // var scroller = document.scrollingElement;
+    // var scrollWidth = scroller.scrollWidth;
+    // var scrollHeight = scroller.scrollHeight;
+    // var numberColumns = Math.ceil(scrollWidth/49);
+    // var numberRows = Math.ceil(scrollHeight/49);
     var grid = document.getElementById('grid');
 
-    for (var i = 1; i <= numberRows; i++){
+    for (var i = 1; i <= 300; i++){
       var row = document.createElement('tr');
       grid.appendChild(row);
 
-      for (var j = 1; j <= numberColumns; j++){
+      for (var j = 1; j <= 300; j++){
         var square = document.createElement('td');
         square.id = j + "," + i;
         square.ondragover = gridDragOverHandler;
@@ -108,23 +107,7 @@ window.onload = function(){
         row.appendChild(square);
       }
     }
-
-
-    // console.log('scroller.scrollWidth', scroller.scrollWidth);
-    // console.log('window.innerWidth', window.innerWidth);
-    // console.log('scroller.scrollWidth - window.innerWidth', scroller.scrollWidth - window.innerWidth);
-    // console.log('scroller.scrollLeft', scroller.scrollLeft);
-
-    //ToDo: scrollGrid function to make infinite scrolling grid.
-    // this.scrollGrid(scroller, grid, i, j);
   }
-
-  //ToDo: scrollGrid function to make infinite scrolling grid.
-  // var scrollGrid = function(scroller, grid, i, j){
-  //   if (scroller.scrollWidth - window.innerWidth >= scroller.scrollLeft){
-  //     // console.log('in scrollGrid if statement');
-  //   }
-  // }
 
   var showHand = function(){
     //ToDo: Below assumes there will be at least as many grid squares in
@@ -150,32 +133,36 @@ window.onload = function(){
     }
   }
 
-  var checkWords = function(word){
+  var checkWord = function(word){
     //url adds 'entries/en/' and word to base url; needed to retrieve dictionary
     //entry for the word
     //word parameter needs to be in form of api's 'word_id' (see
     //https://developer.oxforddictionaries.com/documentation/making-requests-to-the-api)
     //-- this means a url-encoded string, lower case (also any spaces replaced
     //with underscores - although words queried here won't include spaces)
-    var url = 'https://od-api.oxforddictionaries.com/api/v1/entries/en/' + word;
+    
+    var url = 'http://localhost:3000/dictionary'
+    var data = JSON.stringify({word: word});
+    console.log('data', data);
+    console.log('data type', typeof data);
+
     var request = new XMLHttpRequest();
-    request.open("GET", url);
-    request.setRequestHeader("Accept","application/json");
-    request.setRequestHeader("app_id","3fb114a3");
-    request.setRequestHeader("app_key","b6574f7d1ba83ba2414f233f465e4d06");
+    request.open("POST", url);
+    request.setRequestHeader('Content-Type', 'application/json')
     request.onload = function(){
       console.log(request.status);
       if (request.status === 200){
         var wordEntry = JSON.parse(request.responseText);
-        console.log('word entry from api:', wordEntry);
+        console.log('response:', wordEntry);
       }
     }
-    request.send(null);
+    request.send(data);
   }
+
 
   makeGrid();
   showHand();
-  checkWords("lenticular");
+  checkWord("lenticular");
 
   // ToDo: Where should this bit go?
   var swapZone = document.getElementById('swap-zone');
