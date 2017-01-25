@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var parser = require('xml2json');
 var app = express();
 var path = require('path');
 var http = require('http');
@@ -12,11 +13,19 @@ app.get('/', function (req, res) {
 
 app.post('/dictionary', function(req, res){
   var path = '/api/v1/references/scrabble/' + req.body.word + '?key=4.391078540068126e29';
-  console.log('path', path)
 
   var callback = function(response){
-    console.log('in callback response:', response.responseText)
-    // res.send(response)
+    let data = '';
+
+    response.on('data', function(chunk) {
+      data += chunk
+    });
+
+    response.on('end', function() {
+      data = parser.toJson(data);
+      console.log(data)
+      res.send(data);
+    });
   }
 
   var options = {

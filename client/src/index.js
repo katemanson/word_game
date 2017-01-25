@@ -153,7 +153,11 @@ window.onload = function(){
       console.log(request.status);
       if (request.status === 200){
         var wordEntry = JSON.parse(request.responseText);
-        console.log('response:', wordEntry);
+        if (Object.keys(wordEntry.entry).length){
+          console.log('wordEntry.entry.scrabble: ', parseInt(wordEntry.entry.scrabble))
+        } else {
+          console.log('no entry; not a word')
+        }
       }
     }
     request.send(data);
@@ -162,7 +166,7 @@ window.onload = function(){
 
   makeGrid();
   showHand();
-  checkWord("lenticular");
+  checkWord("prestidigitate");
 
   // ToDo: Where should this bit go?
   var swapZone = document.getElementById('swap-zone');
